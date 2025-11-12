@@ -1,0 +1,177 @@
+Conversation opened. 1 unread message.
+
+Skip to content
+Using BMS College of Engineering Mail with screen readers
+2 of 304
+Fwd:
+Inbox
+
+Ankith M Mahalathkar
+Attachments
+9:57 PM (6 minutes ago)
+to me
+
+
+---------- Forwarded message ---------
+From: B Anil Kumar <banilkumar.cs25@bmsce.ac.in>
+Date: Tue, 11 Nov 2025, 6:46 pm
+Subject:
+To: Ankith M Mahalathkar <ankithm.cs25@bmsce.ac.in>
+
+
+
+ 6 Attachments
+  •  Scanned by Gmail
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node{
+    int data;
+    struct node *next;
+};
+
+struct node *head=NULL;
+
+struct node* createNode(int data){
+    struct node *newNode=(struct node*)malloc(sizeof(struct node));
+    if(newNode==NULL){
+        printf("Memory allocation failed \n");
+        exit(0);
+    }
+
+    newNode->data=data;
+    newNode->next=NULL;
+    return newNode;
+}
+
+void createList(){
+    int n, data;
+    printf("Enter Number of nodes create : ");
+    scanf("%d", &n);
+
+    for(int i=0; i<n; i++){
+        printf("Enter data for node %d : ",i+1);
+        scanf("%d", &data);
+
+        struct node *newNode=createNode(data);
+
+        if(head==NULL){
+            head=newNode;
+        }else{
+            struct node *temp=head;
+            while(temp->next!=NULL)
+                temp=temp->next;
+            temp->next=newNode;
+        }
+    }
+}
+
+void insertAtB(int data){
+    struct node *newNode=createNode(data);
+    newNode->next=head;
+    head=newNode;
+}
+
+void InsertAtE(int data){
+    struct node *newNode = createNode(data);
+
+    if(head==NULL){
+        head=newNode;
+        return;
+    }
+
+    struct node *temp=head;
+    while(temp->next!=NULL)
+        temp=temp->next;
+    temp->next=newNode;
+}
+
+void insertAtP(int data, int position){
+    struct node *newNode = createNode(data);
+
+    if(position == 1){
+        newNode->next=head;
+        head=newNode;
+        return;
+    }
+
+    struct node *temp=head;
+    for(int i=1; i<position-1 && temp!=NULL; i++){
+        temp=temp->next;
+    }
+
+    if(temp==NULL){
+        printf("Invaild Position \n");
+        free(newNode);
+        return;
+    }
+
+    newNode->next=temp->next;
+    temp->next=newNode;
+}
+
+void display(){
+    struct node *temp=head;
+
+    if(temp==NULL){
+        printf("List Empty \n");
+        return;
+    }
+
+    printf("Linked List :");
+    while(temp!=NULL){
+        printf("%d", temp->data);
+        temp=temp->next;
+    }
+    printf("NULL \n");
+}
+
+int main(){
+    int choice, data, pos;
+
+    while(1){
+        printf("Singly Linked List Operations : \n");
+        printf("1.Create Linked List \n");
+        printf("2.Insert At Begining \n");
+        printf("3.Insert at Positon \n");
+        printf("4.InsertAt End \n");
+        printf("5. Display the List : \n");
+        printf("6.Exit \n");
+
+
+        printf("Enter your choice : ");
+        scanf("%d", &choice);
+
+        switch(choice){
+            case 1:
+                createList();
+                break;
+            case 2:
+                printf("Enter data to inseret beign :");
+                scanf("%d", &data);
+                insertAtB(data);
+                break;
+            case 3:
+                printf("Enter data to insert: ");
+                scanf("%d", &data);
+                printf("Enter position: ");
+                scanf("%d", &pos);
+                insertAtP(data, pos);
+                break;
+            case 4:
+                printf("Enter data to insert at end: ");
+                scanf("%d", &data);
+                InsertAtE(data);
+                break;
+            case 5:
+                display();
+                break;
+            case 6:
+                exit(0);
+            default:
+                printf("Invaild choice \n");
+        }
+    }
+}
+LinkedList.txt
+Displaying LinkedList.txt.
