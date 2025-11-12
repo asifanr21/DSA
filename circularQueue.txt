@@ -1,0 +1,94 @@
+#include <stdio.h>
+#include <stdlib.h> // for exit()
+
+#define MAX 50
+
+int queue_array[MAX];
+int front = -1;
+int rear = -1;
+
+int IsEmpty() {
+    return (front == -1);  // When front is -1, queue is empty
+}
+
+int IsFull() {
+    return ((rear + 1) % MAX == front);  // Circular queue full condition
+}
+
+void enqueue(int x) {
+    if (IsFull()) {
+        printf("Queue is Full\n");
+        return;
+    } 
+    if (IsEmpty()) {
+        front = 0;
+        rear = 0;
+    } else {
+        rear = (rear + 1) % MAX;
+    }
+    queue_array[rear] = x;
+    printf("Inserted %d\n", x);
+}
+
+void dequeue() {
+    if (IsEmpty()) {
+        printf("Queue is Empty\n");
+        return;
+    }
+    if (front == rear) {
+        // Only one element was present
+        front = -1;
+        rear = -1;
+    } else {
+        front = (front + 1) % MAX;
+    }
+}
+
+void display() {
+    if (IsEmpty()) {
+        printf("Queue is empty\n");
+        return;
+    }
+    printf("Queue is: ");
+    int i = front;
+    while (1) {
+        printf("%d ", queue_array[i]);
+        if (i == rear)
+            break;
+        i = (i + 1) % MAX;
+    }
+    printf("\n");
+}
+
+int main() {
+    int choice, value;
+
+    while (1) {
+        printf("\n1.Insert\n");
+        printf("2.Delete\n");
+        printf("3.Display\n");
+        printf("4.Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter the element to insert: ");
+                scanf("%d", &value);
+                enqueue(value);
+                break;
+            case 2:
+                dequeue();
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                exit(0);
+            default:
+                printf("Invalid choice\n");
+        }
+    }
+
+    return 0;
+}
